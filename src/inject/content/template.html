@@ -1,0 +1,35 @@
+<input class="zen-tools-address-bar zen-tools-hide" type="text" placeholder="http://example.com/">
+<div class="zen-tools-glass zen-tools-hide"></div>
+
+<script>
+	var shown = false;
+
+	$(document).ready(function () {
+
+		$(document).keypress(function (event) {
+			if (event.ctrlKey == true && event.which == 0) {
+				toggleView();
+			}
+		});
+
+		$('input.zen-tools-address-bar').keypress(function (event) {
+			if (event.keyCode == 13) { // If enter pressed...
+				window.postMessage({
+					url: $(this).val()
+				}, "*");
+			}
+		});
+
+		function toggleView() {
+			if (shown) {
+				$('div.zen-tools-glass').focus();
+				$('.zen-tools-hide').fadeOut(200);
+			} else {
+				$('.zen-tools-hide').fadeIn(200, function () {
+					$('input.zen-tools-address-bar').focus();
+				});
+			}
+			shown = !shown;
+		}
+	});
+</script>

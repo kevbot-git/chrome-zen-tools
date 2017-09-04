@@ -1,0 +1,49 @@
+{
+  "name": "Zen Tools for Chrome",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "A Chrome extension allowing more fluid use in fullscreen mode.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "default_locale": "en",
+  "background": {
+    "scripts": [
+      "src/bg/background.js"
+    ],
+    "persistent": true
+  },
+  "options_page": "src/options/index.html",
+  "chrome_url_overrides": {
+    "newtab": "src/override/override.html"
+  },
+  "permissions": [
+    "bookmarks",
+    "history",
+    "tabs"
+  ],
+  "web_accessible_resources": [
+    "src/inject/content/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*",
+        "file://*/*",
+        "ftp://*/*"
+      ],
+      "run_at": "document_start",
+      "css": [
+        "src/inject/zen-tools-inject.css"
+      ],
+      "js": [
+        "bower_components/jquery/dist/jquery.min.js",
+        "bower_components/jquery.hotkeys/jquery.hotkeys.js",
+        "src/inject/zen-tools-inject.js"
+      ]
+    }
+  ]
+}
